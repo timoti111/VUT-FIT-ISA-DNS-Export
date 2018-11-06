@@ -110,7 +110,7 @@ class dns_type
         static const uint16_t num = 47;
         domain_name next_domain_name;
         std::vector<unsigned char> type_bit_maps;
-		std::string parse_type_bit_maps() const;
+        std::string parse_type_bit_maps() const;
         std::string to_string() const;
     } type_nsec_;
 

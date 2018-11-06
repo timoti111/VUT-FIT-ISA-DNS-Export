@@ -13,7 +13,8 @@
  * @param whole_buffer pointer to whole buffer so records can be decompressed
  * @param count number of records to be parsed
  */
-dns_queries::dns_queries(dns_utils::memory_block& read_head, dns_utils::memory_block& whole_buffer, const uint16_t count)
+dns_queries::dns_queries(dns_utils::memory_block& read_head, dns_utils::memory_block& whole_buffer,
+                         const uint16_t count)
 {
     for (uint16_t i = 0; i < count; i++)
     {
@@ -42,7 +43,7 @@ std::string dns_queries::to_string()
     std::stringstream stream;
     for (auto element : questions)
     {
-        stream << element;
+        stream << element << std::endl;
     }
     return stream.str();
 }

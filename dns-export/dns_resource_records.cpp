@@ -45,7 +45,7 @@ std::string dns_resource_records::to_string()
     std::stringstream stream;
     for (auto element : records)
     {
-        stream << element;
+        stream << element << std::endl;
     }
     return stream.str();
 }

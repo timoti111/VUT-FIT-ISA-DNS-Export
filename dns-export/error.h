@@ -36,15 +36,15 @@ public:
 class argument_parsing_error : public std::runtime_error
 {
 public:
-	explicit argument_parsing_error(const std::string& arg) : runtime_error(arg)
-	{
-	}
+    explicit argument_parsing_error(const std::string& arg) : runtime_error(arg)
+    {
+    }
 };
 
 class packet_capture_error : public std::runtime_error
 {
 public:
-	explicit packet_capture_error(const std::string& arg) : runtime_error(arg)
-	{
-	}
+    explicit packet_capture_error(const std::string& arg) : runtime_error(arg)
+    {
+    }
 };

@@ -51,12 +51,12 @@ void argument_parser::parse()
                 }
                 else
                 {
-					throw argument_parsing_error("Bad arguments!");
+                    throw argument_parsing_error("Bad arguments!");
                 }
             }
             else
             {
-				throw argument_parsing_error("Bad arguments!");
+                throw argument_parsing_error("Bad arguments!");
             }
         }
         else
@@ -79,7 +79,7 @@ void argument_parser::insert_option(const std::string& argument, const int& posi
 {
     if (!options_.insert(std::make_pair(argument, std::make_pair(position, value))).second)
     {
-		throw argument_parsing_error("Bad arguments!");
+        throw argument_parsing_error("Bad arguments!");
     }
 } /**
  * Inserts option to options_names (arguments without preceding -x)

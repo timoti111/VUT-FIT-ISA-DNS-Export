@@ -49,6 +49,7 @@
     <ClCompile Include="dns_utils.cpp" />
     <ClCompile Include="error.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="statistics.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="argument_parser.h" />
@@ -64,6 +65,7 @@
     <ClInclude Include="dns_type.h" />
     <ClInclude Include="dns_utils.h" />
     <ClInclude Include="error.h" />
+    <ClInclude Include="statistics.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="dns.pcap">

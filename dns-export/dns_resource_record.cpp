@@ -32,7 +32,6 @@ std::string dns_resource_record::to_string()
         stream << dns_utils::label_to_string(r_name);
         stream << " " << r_data.get_type();
         stream << " " << r_data;
-        stream << std::endl;
     }
     return stream.str();
 }

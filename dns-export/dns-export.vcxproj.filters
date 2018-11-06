@@ -39,6 +39,7 @@
     <ClInclude Include="base64.h">
       <Filter>utils</Filter>
     </ClInclude>
+    <ClInclude Include="statistics.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dns_header.cpp">
@@ -68,5 +69,6 @@
     <ClCompile Include="base64.cpp">
       <Filter>utils</Filter>
     </ClCompile>
+    <ClCompile Include="statistics.cpp" />
   </ItemGroup>
 </Project>

@@ -11,6 +11,7 @@
 #include <stdexcept>
 #include <cstring>
 #include "error.h"
+#include "statistics.h"
 
 void dns_packet_capture::set_capture_device(const std::string& device)
 {
@@ -23,7 +24,7 @@ void dns_packet_capture::set_capture_device(const std::string& device)
     handle_ = pcap_open_live(dev_, snap_len_, 1, 1000, err_buf_);
     if (handle_ == nullptr)
     {
-		throw packet_capture_error("Couldn't open device");
+        throw packet_capture_error("Couldn't open device");
     }
 }
 
@@ -32,7 +33,7 @@ void dns_packet_capture::set_pcap_file(const std::string& file)
     handle_ = pcap_open_offline(file.c_str(), err_buf_);
     if (handle_ == nullptr)
     {
-		throw packet_capture_error("Couldn't open file");
+        throw packet_capture_error("Couldn't open file");
     }
 }
 
@@ -47,7 +48,7 @@ void dns_packet_capture::start_capture()
     if (link_type_ != DLT_EN10MB/* && link_type != DLT_LINUX_SLL &&
         link_type != DLT_IPV4 && link_type != DLT_IPV6*/)
     {
-		throw packet_capture_error("Device is not ethernet");
+        throw packet_capture_error("Device is not ethernet");
     }
     if (pcap_lookupnet(dev_, &net_, &mask_, err_buf_) == PCAP_ERROR)
     {
@@ -59,16 +60,16 @@ void dns_packet_capture::start_capture()
     }
     if (pcap_compile(handle_, &fp_, filter_exp_.c_str(), 0, net_) == PCAP_ERROR)
     {
-		//throw packet_capture_error("Couldn't compile filter");
+        //throw packet_capture_error("Couldn't compile filter");
     }
     if (pcap_setfilter(handle_, &fp_) == PCAP_ERROR)
     {
-
-		//throw packet_capture_error("Couldn't set filter");
+        //throw packet_capture_error("Couldn't set filter");
     }
     while (!next_packet(handle_, link_type_))
     {
     }
+    std::cout << statistics::get_instance();
     pcap_freecode(&fp_);
     pcap_close(handle_);
 } /**
@@ -155,6 +156,7 @@ int dns_packet_capture::next_packet(pcap_t* session, int link_type)
             return 0;
         if (response.answers.size() != 0)
         {
+            statistics::get_instance().add(response.answers.records);
             std::cout << "Packet number: " << n << " Packet caplen: " << packet_hdr->caplen << " Packet len: " <<
                 packet_hdr->len << std::endl;
             std::cout << response.answers;

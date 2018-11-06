@@ -27,7 +27,6 @@ std::string dns_query::to_string() const
     stream << dns_utils::label_to_string(q_name);
     stream << " " << "IN";
     stream << " " << dns_type::get_type_name(q_type);
-    stream << std::endl;
     return stream.str();
 }
 
