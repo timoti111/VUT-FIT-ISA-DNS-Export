@@ -1,6 +1,10 @@
 #include "statistics.h"
 #include <sstream>
 
+statistics::statistics()
+{
+}
+
 statistics& statistics::get_instance()
 {
     static statistics instance; // Guaranteed to be destroyed.
@@ -8,25 +12,38 @@ statistics& statistics::get_instance()
     return instance;
 }
 
-void statistics::add(std::string stat)
+void statistics::add(const std::string& stat)
 {
-    if (this->find(stat) == this->end())
-        this->insert(std::make_pair(stat, 0));
-    (*this)[stat]++;
+	std::lock_guard<std::mutex> lock(mutex_);
+    stats_[stat]++;
 }
 
-void statistics::add(std::vector<dns_resource_record>& stat)
+void statistics::add(const std::vector<dns_resource_record>& stats)
 {
-    for (auto element : stat)
+	std::lock_guard<std::mutex> lock(mutex_);
+    for (auto element : stats)
     {
-        this->add(element.to_string());
+		stats_[element.to_string()]++;
     }
+}
+
+std::map<std::string, unsigned long> statistics::get_map()
+{
+	std::lock_guard<std::mutex> lock(mutex_);
+	return std::map<std::string, unsigned long>(stats_);
+}
+
+bool statistics::empty()
+{
+	std::lock_guard<std::mutex> lock(mutex_);
+	return stats_.empty();
 }
 
 std::string statistics::to_string()
 {
     std::stringstream stream;
-    for (auto element : *this)
+	std::lock_guard<std::mutex> lock(mutex_);
+    for (auto element : stats_)
     {
         stream << element.first << " " << element.second << std::endl;
     }

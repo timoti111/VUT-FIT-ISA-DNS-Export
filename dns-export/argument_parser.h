@@ -23,7 +23,7 @@ class argument_parser
 public:
     argument_parser(const int& argc, char** argv, const std::string& opt_string);
     bool contains(const std::string& argument);
-    bool contains(const int& index) const;
+    bool contains(const size_t& index) const;
     long unsigned count() const;
     long unsigned count_names() const;
     void parse();

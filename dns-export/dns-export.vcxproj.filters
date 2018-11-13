@@ -1,37 +1,46 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="dns">
-      <UniqueIdentifier>{cc2b1632-aebe-41b1-bd12-a6721050184e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="dns\dns_types">
-      <UniqueIdentifier>{ffff44f3-1b43-4c5b-b6c2-76fefd991a76}</UniqueIdentifier>
-    </Filter>
     <Filter Include="utils">
       <UniqueIdentifier>{ff88ba49-2d29-46e7-9dc5-8d1592205fd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="syslog">
+      <UniqueIdentifier>{835fce39-6cce-4d92-8777-1b66ebc2dbd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="protocols">
+      <UniqueIdentifier>{aa08269f-361d-4fdb-9261-e9c981cffbd5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="protocols\dns">
+      <UniqueIdentifier>{cc2b1632-aebe-41b1-bd12-a6721050184e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="protocols\dns\dns_types">
+      <UniqueIdentifier>{ffff44f3-1b43-4c5b-b6c2-76fefd991a76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="protocols\tcp">
+      <UniqueIdentifier>{b71f4e29-90de-46bb-9f17-c63163a62acd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="protocols\ip">
+      <UniqueIdentifier>{de6204ee-2168-460e-84b2-04893904e02d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dns_header.h">
-      <Filter>dns</Filter>
+      <Filter>protocols\dns</Filter>
     </ClInclude>
     <ClInclude Include="dns_resource_record.h">
-      <Filter>dns</Filter>
+      <Filter>protocols\dns</Filter>
     </ClInclude>
     <ClInclude Include="dns_resource_records.h">
-      <Filter>dns</Filter>
+      <Filter>protocols\dns</Filter>
     </ClInclude>
     <ClInclude Include="dns_queries.h">
-      <Filter>dns</Filter>
+      <Filter>protocols\dns</Filter>
     </ClInclude>
     <ClInclude Include="dns_query.h">
-      <Filter>dns</Filter>
-    </ClInclude>
-    <ClInclude Include="dns_packet.h">
-      <Filter>dns</Filter>
+      <Filter>protocols\dns</Filter>
     </ClInclude>
     <ClInclude Include="dns_type.h">
-      <Filter>dns\dns_types</Filter>
+      <Filter>protocols\dns\dns_types</Filter>
     </ClInclude>
     <ClInclude Include="dns_utils.h">
       <Filter>utils</Filter>
@@ -40,28 +49,53 @@
       <Filter>utils</Filter>
     </ClInclude>
     <ClInclude Include="statistics.h" />
+    <ClInclude Include="syslog.h">
+      <Filter>syslog</Filter>
+    </ClInclude>
+    <ClInclude Include="argument_parser.h" />
+    <ClInclude Include="dns_export.h" />
+    <ClInclude Include="dns_packet_capture.h" />
+    <ClInclude Include="error.h" />
+    <ClInclude Include="link_layer.h">
+      <Filter>protocols</Filter>
+    </ClInclude>
+    <ClInclude Include="tcp.h">
+      <Filter>protocols\tcp</Filter>
+    </ClInclude>
+    <ClInclude Include="dns.h">
+      <Filter>protocols\dns</Filter>
+    </ClInclude>
+    <ClInclude Include="tcp_fragments.h">
+      <Filter>protocols\tcp</Filter>
+    </ClInclude>
+    <ClInclude Include="ipv4.h">
+      <Filter>protocols\ip</Filter>
+    </ClInclude>
+    <ClInclude Include="ipv6.h">
+      <Filter>protocols\ip</Filter>
+    </ClInclude>
+    <ClInclude Include="ip_fragments.h">
+      <Filter>protocols\ip</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dns_header.cpp">
-      <Filter>dns</Filter>
+      <Filter>protocols\dns</Filter>
     </ClCompile>
     <ClCompile Include="dns_resource_record.cpp">
-      <Filter>dns</Filter>
+      <Filter>protocols\dns</Filter>
     </ClCompile>
     <ClCompile Include="dns_resource_records.cpp">
-      <Filter>dns</Filter>
+      <Filter>protocols\dns</Filter>
     </ClCompile>
     <ClCompile Include="dns_queries.cpp">
-      <Filter>dns</Filter>
+      <Filter>protocols\dns</Filter>
     </ClCompile>
     <ClCompile Include="dns_query.cpp">
-      <Filter>dns</Filter>
-    </ClCompile>
-    <ClCompile Include="dns_packet.cpp">
-      <Filter>dns</Filter>
+      <Filter>protocols\dns</Filter>
     </ClCompile>
     <ClCompile Include="dns_type.cpp">
-      <Filter>dns\dns_types</Filter>
+      <Filter>protocols\dns\dns_types</Filter>
     </ClCompile>
     <ClCompile Include="dns_utils.cpp">
       <Filter>utils</Filter>
@@ -70,5 +104,37 @@
       <Filter>utils</Filter>
     </ClCompile>
     <ClCompile Include="statistics.cpp" />
+    <ClCompile Include="syslog.cpp">
+      <Filter>syslog</Filter>
+    </ClCompile>
+    <ClCompile Include="argument_parser.cpp" />
+    <ClCompile Include="dns_export.cpp" />
+    <ClCompile Include="dns_packet_capture.cpp" />
+    <ClCompile Include="error.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="link_layer.cpp">
+      <Filter>protocols</Filter>
+    </ClCompile>
+    <ClCompile Include="tcp.cpp">
+      <Filter>protocols\tcp</Filter>
+    </ClCompile>
+    <ClCompile Include="dns.cpp">
+      <Filter>protocols\dns</Filter>
+    </ClCompile>
+    <ClCompile Include="tcp_fragments.cpp">
+      <Filter>protocols\tcp</Filter>
+    </ClCompile>
+    <ClCompile Include="ipv4.cpp">
+      <Filter>protocols\ip</Filter>
+    </ClCompile>
+    <ClCompile Include="ipv6.cpp">
+      <Filter>protocols\ip</Filter>
+    </ClCompile>
+    <ClCompile Include="ip_fragments.cpp">
+      <Filter>protocols\ip</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="dns.pcap" />
   </ItemGroup>
 </Project>

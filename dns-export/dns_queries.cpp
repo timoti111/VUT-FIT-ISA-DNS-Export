@@ -18,8 +18,8 @@ dns_queries::dns_queries(dns_utils::memory_block& read_head, dns_utils::memory_b
 {
     for (uint16_t i = 0; i < count; i++)
     {
-        dns_query question(read_head, whole_buffer);
-        questions.push_back(question);
+        dns_query query(read_head, whole_buffer);
+        questions.push_back(query);
     }
 } /**
  * Operator for accessing specific record

@@ -178,7 +178,7 @@ std::string dns_type::type_ptr::to_string() const
 std::string dns_type::type_mx::to_string() const
 {
     std::stringstream stream;
-    stream << preference << " " << exchange.to_string();
+    stream << "\"" << preference << " " << exchange.to_string() << "\"";
     return stream.str();
 }
 
@@ -190,38 +190,40 @@ std::string dns_type::type_ns::to_string() const
 std::string dns_type::type_soa::to_string() const
 {
     std::stringstream stream;
-    stream << mname.to_string() << " " << rname.to_string() << " " << serial << " " << refresh << " " << retry << " " <<
-        expire << " " << minimum;
+    stream << "\"" << mname.to_string() << " " << rname.to_string() << " " << serial << " " << refresh << " " << retry << " " <<
+        expire << " " << minimum << "\"";
     return stream.str();
 }
 
 std::string dns_type::type_txt::to_string() const
 {
-    return txt_data;
+	std::stringstream stream;
+	stream << "\"" << txt_data << "\"";
+	return stream.str();
 }
 
 std::string dns_type::type_spf::to_string() const
 {
-    return spf_data;
+	std::stringstream stream;
+	stream << "\"" << spf_data << "\"";
+	return stream.str();
 }
 
 std::string dns_type::type_dnskey::to_string() const
 {
     std::stringstream stream;
-    stream << flags << " " << static_cast<uint16_t>(protocol) << " " << static_cast<uint16_t>(algorithm) << " ( " <<
-        base64_encode((unsigned char *)public_key.data(), public_key.size()) << " )";
+    stream << "\"" << flags << " " << static_cast<uint16_t>(protocol) << " " << static_cast<uint16_t>(algorithm) << " ( " <<
+        base64_encode((unsigned char *)public_key.data(), public_key.size()) << " )\"";
     return stream.str();
 }
 
 std::string dns_type::type_rrsig::to_string() const
 {
     std::stringstream stream;
-    stream << get_type_name(type_covered) << " " << static_cast<uint16_t>(algorithm) << " " << static_cast<uint16_t>(
+    stream << "\"" << get_type_name(type_covered) << " " << static_cast<uint16_t>(algorithm) << " " << static_cast<uint16_t>(
             labels) << " " << original_ttl << " " << signature_expiration << " ( " << signature_inception << " " <<
         key_tag
-        << " " << signers_name.to_string() << " " << base64_encode((unsigned char *)signature.data(), signature.size())
-        <<
-        " )";
+        << " " << signers_name.to_string() << " " << base64_encode((unsigned char *)signature.data(), signature.size()) << " )\"";
     return stream.str();
 }
 
@@ -261,14 +263,14 @@ std::string dns_type::type_nsec::parse_type_bit_maps() const
 std::string dns_type::type_nsec::to_string() const
 {
     std::stringstream stream;
-    stream << next_domain_name.to_string() << " " << parse_type_bit_maps();
+    stream << "\"" << next_domain_name.to_string() << " " << parse_type_bit_maps() << "\"";
     return stream.str();
 }
 
 std::string dns_type::type_ds::to_string() const
 {
     std::stringstream stream;
-    stream << key_tag << " " << static_cast<uint16_t>(algorithm) << " " << static_cast<uint16_t>(digest_type) << " ( "
-        << dns_utils::vec_to_hexstring(digest) << " )";
+    stream << "\"" << key_tag << " " << static_cast<uint16_t>(algorithm) << " " << static_cast<uint16_t>(digest_type) << " ( "
+        << dns_utils::vec_to_hexstring(digest) << " )\"";
     return stream.str();
 }

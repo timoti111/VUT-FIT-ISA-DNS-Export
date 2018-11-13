@@ -44,12 +44,19 @@
     <ClCompile Include="dns_queries.cpp" />
     <ClCompile Include="dns_resource_record.cpp" />
     <ClCompile Include="dns_resource_records.cpp" />
-    <ClCompile Include="dns_packet.cpp" />
+    <ClCompile Include="dns.cpp" />
     <ClCompile Include="dns_type.cpp" />
     <ClCompile Include="dns_utils.cpp" />
     <ClCompile Include="error.cpp" />
+    <ClCompile Include="ip_fragments.cpp" />
+    <ClCompile Include="tcp_fragments.cpp" />
+    <ClCompile Include="ipv4.cpp" />
+    <ClCompile Include="ipv6.cpp" />
+    <ClCompile Include="link_layer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="statistics.cpp" />
+    <ClCompile Include="syslog.cpp" />
+    <ClCompile Include="tcp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="argument_parser.h" />
@@ -61,11 +68,18 @@
     <ClInclude Include="dns_queries.h" />
     <ClInclude Include="dns_resource_record.h" />
     <ClInclude Include="dns_resource_records.h" />
-    <ClInclude Include="dns_packet.h" />
+    <ClInclude Include="dns.h" />
     <ClInclude Include="dns_type.h" />
     <ClInclude Include="dns_utils.h" />
     <ClInclude Include="error.h" />
+    <ClInclude Include="ip_fragments.h" />
+    <ClInclude Include="tcp_fragments.h" />
+    <ClInclude Include="ipv4.h" />
+    <ClInclude Include="ipv6.h" />
+    <ClInclude Include="link_layer.h" />
     <ClInclude Include="statistics.h" />
+    <ClInclude Include="syslog.h" />
+    <ClInclude Include="tcp.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="dns.pcap">
@@ -125,7 +139,7 @@
   <PropertyGroup Label="UserMacros" />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Link>
-      <LibraryDependencies>pcap</LibraryDependencies>
+      <LibraryDependencies>pcap;pthread</LibraryDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

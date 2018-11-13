@@ -48,3 +48,19 @@ public:
     {
     }
 };
+
+class other_error : public std::runtime_error
+{
+public:
+	explicit other_error(const std::string& arg) : runtime_error(arg)
+	{
+	}
+};
+
+class packet_parsing_error : public std::runtime_error
+{
+public:
+	explicit packet_parsing_error(const std::string& arg) : runtime_error(arg)
+	{
+	}
+};

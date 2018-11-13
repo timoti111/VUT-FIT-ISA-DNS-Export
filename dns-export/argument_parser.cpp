@@ -131,7 +131,7 @@ long unsigned argument_parser::count_names() const
  * @param index option index
  * @return true if contains else false
  */
-bool argument_parser::contains(const int& index) const
+bool argument_parser::contains(const size_t& index) const
 {
     return options_names_.size() > index;
 } /**

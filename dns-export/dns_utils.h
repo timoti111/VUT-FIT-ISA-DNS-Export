@@ -30,7 +30,7 @@ public:
     struct memory_block
     {
         unsigned char* ptr;
-        long length;
+        long long length;
     };
 
     static std::vector<unsigned char> parse_name(memory_block& read_head, memory_block& whole_buffer);

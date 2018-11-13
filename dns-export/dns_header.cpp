@@ -5,6 +5,7 @@
  * @author Timotej Halas <xhalas10@stud.fit.vutbr.cz>
  */
 #include "dns_header.h"
+#include <cstring>
 
 /**
  * This constructor reads data from buffer and represents it in DNS Header style
@@ -18,6 +19,7 @@ dns_header::dns_header(dns_utils::memory_block& read_head)
     an_count = dns_utils::mem_to_uint16(read_head);
     ns_count = dns_utils::mem_to_uint16(read_head);
     ar_count = dns_utils::mem_to_uint16(read_head);
+
     flags.qr |= (flags_ >> 15) & 1;
     flags.op_code |= (flags_ >> 11) & 15;
     flags.aa |= (flags_ >> 10) & 1;
