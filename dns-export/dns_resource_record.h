@@ -5,11 +5,10 @@
  * @author Timotej Halas <xhalas10@stud.fit.vutbr.cz>
  */
 #pragma once
-#include <vector>
 #include <cstdint>
-#include <string>
-#include "dns_utils.h"
 #include "dns_type.h"
+#include "utils.h"
+#include <string>
 
 /**
  * Class representing one Resource Record in response
@@ -17,14 +16,14 @@
 class dns_resource_record
 {
 public:
-    std::vector<unsigned char> r_name{};
+    std::string r_name{};
     uint16_t r_type{};
     uint16_t r_class{};
     uint32_t ttl{};
     uint16_t rd_length{};
-    dns_type r_data;
+    dns_type r_data{};
     dns_resource_record() = default;
-    dns_resource_record(dns_utils::memory_block& read_head, dns_utils::memory_block& whole_buffer);
+    dns_resource_record(utils::memory_block& read_head, utils::memory_block& whole_buffer);
     std::string to_string();
     friend std::ostream& operator<<(std::ostream& stream, dns_resource_record& obj);
 };

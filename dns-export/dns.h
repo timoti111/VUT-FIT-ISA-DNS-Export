@@ -6,8 +6,8 @@
  */
 #pragma once
 #include "dns_header.h"
-#include "dns_resource_records.h"
 #include "dns_queries.h"
+#include "dns_resource_records.h"
 #include <ostream>
 
 /**
@@ -21,9 +21,7 @@ public:
     dns_resource_records answers; /// Answers section of response
     dns_resource_records authorities; /// Authorities section of response
     dns_resource_records additionals; /// Additionals section of response
-    dns() = default;
-    dns(const unsigned char* buffer, long length);
-    explicit dns(dns_utils::memory_block &buffer);
+    explicit dns(utils::memory_block& buffer);
     std::string to_string();
     friend std::ostream& operator<<(std::ostream& stream, dns& obj);
 };

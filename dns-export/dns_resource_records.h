@@ -6,6 +6,7 @@
  */
 #pragma once
 #include "dns_resource_record.h"
+#include <vector>
 
 /**
  * Class representing more Resource Records in response
@@ -15,7 +16,7 @@ class dns_resource_records
 public:
     std::vector<dns_resource_record> records{};
     dns_resource_records() = default;
-    dns_resource_records(dns_utils::memory_block& read_head, dns_utils::memory_block& whole_buffer, uint16_t count);
+    dns_resource_records(utils::memory_block& read_head, utils::memory_block& whole_buffer, uint16_t count);
     dns_resource_record operator[](size_t index);
     size_t size() const;
     std::string to_string();

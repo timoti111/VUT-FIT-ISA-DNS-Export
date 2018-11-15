@@ -1,7 +1,7 @@
 /**
- * Project: DNS Lookup nastroj
+ * Project: Export of DNS informations over Syslog protocol
  *
- * @brief DNSResourceRecords class source
+ * @brief dns_queries class source code
  * @author Timotej Halas <xhalas10@stud.fit.vutbr.cz>
  */
 #include "dns_queries.h"
@@ -13,7 +13,7 @@
  * @param whole_buffer pointer to whole buffer so records can be decompressed
  * @param count number of records to be parsed
  */
-dns_queries::dns_queries(dns_utils::memory_block& read_head, dns_utils::memory_block& whole_buffer,
+dns_queries::dns_queries(utils::memory_block& read_head, utils::memory_block& whole_buffer,
                          const uint16_t count)
 {
     for (uint16_t i = 0; i < count; i++)
@@ -21,7 +21,9 @@ dns_queries::dns_queries(dns_utils::memory_block& read_head, dns_utils::memory_b
         dns_query query(read_head, whole_buffer);
         questions.push_back(query);
     }
-} /**
+}
+
+/**
  * Operator for accessing specific record
  * @param index index of record to be returned
  * @return Resource record
@@ -29,7 +31,9 @@ dns_queries::dns_queries(dns_utils::memory_block& read_head, dns_utils::memory_b
 dns_query dns_queries::operator[](const size_t index)
 {
     return questions[index];
-} /**
+}
+
+/**
  * Returns number of Resource records
  * @return number of records
  */
@@ -41,7 +45,7 @@ size_t dns_queries::size() const
 std::string dns_queries::to_string()
 {
     std::stringstream stream;
-    for (auto element : questions)
+    for (auto& element : questions)
     {
         stream << element << std::endl;
     }

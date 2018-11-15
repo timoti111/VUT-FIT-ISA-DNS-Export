@@ -1,14 +1,13 @@
 #pragma once
-#include "dns_utils.h"
-#include <netinet/tcp.h>
+#include "utils.h"
 #include <map>
+#include <netinet/tcp.h>
 #include "tcp_fragments.h"
 
 class tcp
 {
-	tcphdr* tcp_{};
-	static std::map<uint32_t, tcp_fragments> fragments_;
+    tcphdr* tcp_{};
+    static std::map<uint32_t, tcp_fragments> fragmented_packets_;
 public:
-    explicit tcp(dns_utils::memory_block &buffer);
+    explicit tcp(utils::memory_block& buffer);
 };
-

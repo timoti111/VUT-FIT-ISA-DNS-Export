@@ -46,13 +46,12 @@
     <ClCompile Include="dns_resource_records.cpp" />
     <ClCompile Include="dns.cpp" />
     <ClCompile Include="dns_type.cpp" />
-    <ClCompile Include="dns_utils.cpp" />
-    <ClCompile Include="error.cpp" />
+    <ClCompile Include="utils.cpp" />
     <ClCompile Include="ip_fragments.cpp" />
     <ClCompile Include="tcp_fragments.cpp" />
     <ClCompile Include="ipv4.cpp" />
     <ClCompile Include="ipv6.cpp" />
-    <ClCompile Include="link_layer.cpp" />
+    <ClCompile Include="packet_parser.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="statistics.cpp" />
     <ClCompile Include="syslog.cpp" />
@@ -70,13 +69,13 @@
     <ClInclude Include="dns_resource_records.h" />
     <ClInclude Include="dns.h" />
     <ClInclude Include="dns_type.h" />
-    <ClInclude Include="dns_utils.h" />
-    <ClInclude Include="error.h" />
+    <ClInclude Include="utils.h" />
+    <ClInclude Include="exceptions.h" />
     <ClInclude Include="ip_fragments.h" />
     <ClInclude Include="tcp_fragments.h" />
     <ClInclude Include="ipv4.h" />
     <ClInclude Include="ipv6.h" />
-    <ClInclude Include="link_layer.h" />
+    <ClInclude Include="packet_parser.h" />
     <ClInclude Include="statistics.h" />
     <ClInclude Include="syslog.h" />
     <ClInclude Include="tcp.h" />
@@ -141,6 +140,12 @@
     <Link>
       <LibraryDependencies>pcap;pthread</LibraryDependencies>
     </Link>
+    <ClCompile>
+      <BrowseInformation>false</BrowseInformation>
+    </ClCompile>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

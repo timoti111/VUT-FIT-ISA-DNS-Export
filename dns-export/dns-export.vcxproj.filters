@@ -42,9 +42,6 @@
     <ClInclude Include="dns_type.h">
       <Filter>protocols\dns\dns_types</Filter>
     </ClInclude>
-    <ClInclude Include="dns_utils.h">
-      <Filter>utils</Filter>
-    </ClInclude>
     <ClInclude Include="base64.h">
       <Filter>utils</Filter>
     </ClInclude>
@@ -55,10 +52,6 @@
     <ClInclude Include="argument_parser.h" />
     <ClInclude Include="dns_export.h" />
     <ClInclude Include="dns_packet_capture.h" />
-    <ClInclude Include="error.h" />
-    <ClInclude Include="link_layer.h">
-      <Filter>protocols</Filter>
-    </ClInclude>
     <ClInclude Include="tcp.h">
       <Filter>protocols\tcp</Filter>
     </ClInclude>
@@ -76,6 +69,13 @@
     </ClInclude>
     <ClInclude Include="ip_fragments.h">
       <Filter>protocols\ip</Filter>
+    </ClInclude>
+    <ClInclude Include="packet_parser.h">
+      <Filter>protocols</Filter>
+    </ClInclude>
+    <ClInclude Include="exceptions.h" />
+    <ClInclude Include="utils.h">
+      <Filter>utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -97,9 +97,6 @@
     <ClCompile Include="dns_type.cpp">
       <Filter>protocols\dns\dns_types</Filter>
     </ClCompile>
-    <ClCompile Include="dns_utils.cpp">
-      <Filter>utils</Filter>
-    </ClCompile>
     <ClCompile Include="base64.cpp">
       <Filter>utils</Filter>
     </ClCompile>
@@ -110,11 +107,7 @@
     <ClCompile Include="argument_parser.cpp" />
     <ClCompile Include="dns_export.cpp" />
     <ClCompile Include="dns_packet_capture.cpp" />
-    <ClCompile Include="error.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="link_layer.cpp">
-      <Filter>protocols</Filter>
-    </ClCompile>
     <ClCompile Include="tcp.cpp">
       <Filter>protocols\tcp</Filter>
     </ClCompile>
@@ -132,6 +125,12 @@
     </ClCompile>
     <ClCompile Include="ip_fragments.cpp">
       <Filter>protocols\ip</Filter>
+    </ClCompile>
+    <ClCompile Include="packet_parser.cpp">
+      <Filter>protocols</Filter>
+    </ClCompile>
+    <ClCompile Include="utils.cpp">
+      <Filter>utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

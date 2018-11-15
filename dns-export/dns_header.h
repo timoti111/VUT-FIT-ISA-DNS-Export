@@ -6,7 +6,7 @@
  */
 #pragma once
 #include <cstdint>
-#include "dns_utils.h"
+#include "utils.h"
 
 /**
  * Class representing DNS Header section
@@ -34,5 +34,5 @@ public:
     uint16_t ns_count{};
     uint16_t ar_count{};
     dns_header() = default;
-    explicit dns_header(dns_utils::memory_block& read_head);
+    explicit dns_header(utils::memory_block& read_head);
 };

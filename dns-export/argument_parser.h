@@ -17,17 +17,16 @@ class argument_parser
     std::vector<std::string> arguments_{}; /// here argv will be stored
     std::map<std::string, std::pair<int, std::string>> options_{}; /// here options like -x value will be stored
     std::vector<std::pair<int, std::string>> options_names_{}; /// here options without preceding
-    std::string opt_string_; /// classic getopt() optstring
+    std::string opt_string_{}; /// classic getopt() optstring
     void insert_option(const std::string& argument, const int& position, const std::string& value);
     void insert_option(const int& position, const std::string& value);
 public:
-    argument_parser(const int& argc, char** argv, const std::string& opt_string);
+    explicit argument_parser(const int& argc, char** argv, const std::string& opt_string);
     bool contains(const std::string& argument);
     bool contains(const size_t& index) const;
     long unsigned count() const;
     long unsigned count_names() const;
     void parse();
-    void print_arguments();
     std::pair<int, std::string> operator[](const int& index);
     std::pair<int, std::string> operator[](const std::string& argument);
 };

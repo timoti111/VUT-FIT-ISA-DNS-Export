@@ -1,25 +1,24 @@
 /**
- * Project: DNS Lookup nastroj
+ * Project: Export of DNS informations over Syslog protocol
  *
- * @brief DNSHeader class source
+ * @brief dns_header class source code
  * @author Timotej Halas <xhalas10@stud.fit.vutbr.cz>
  */
 #include "dns_header.h"
-#include <cstring>
+#include <netinet/in.h>
 
 /**
  * This constructor reads data from buffer and represents it in DNS Header style
  * @param read_head reference to memory where read head is currently
  */
-dns_header::dns_header(dns_utils::memory_block& read_head)
+dns_header::dns_header(utils::memory_block& read_head)
 {
-    id = dns_utils::mem_to_uint16(read_head);
-    flags_ = dns_utils::mem_to_uint16(read_head);
-    qd_count = dns_utils::mem_to_uint16(read_head);
-    an_count = dns_utils::mem_to_uint16(read_head);
-    ns_count = dns_utils::mem_to_uint16(read_head);
-    ar_count = dns_utils::mem_to_uint16(read_head);
-
+    id = ntohs(*read_head.get_ptr_and_add<uint16_t>());
+    flags_ = ntohs(*read_head.get_ptr_and_add<uint16_t>());
+    qd_count = ntohs(*read_head.get_ptr_and_add<uint16_t>());
+    an_count = ntohs(*read_head.get_ptr_and_add<uint16_t>());
+    ns_count = ntohs(*read_head.get_ptr_and_add<uint16_t>());
+    ar_count = ntohs(*read_head.get_ptr_and_add<uint16_t>());
     flags.qr |= (flags_ >> 15) & 1;
     flags.op_code |= (flags_ >> 11) & 15;
     flags.aa |= (flags_ >> 10) & 1;
