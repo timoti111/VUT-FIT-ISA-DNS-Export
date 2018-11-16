@@ -35,58 +35,60 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="argument_parser.cpp" />
-    <ClCompile Include="base64.cpp" />
-    <ClCompile Include="dns_export.cpp" />
-    <ClCompile Include="dns_header.cpp" />
-    <ClCompile Include="dns_packet_capture.cpp" />
-    <ClCompile Include="dns_query.cpp" />
-    <ClCompile Include="dns_queries.cpp" />
-    <ClCompile Include="dns_resource_record.cpp" />
-    <ClCompile Include="dns_resource_records.cpp" />
-    <ClCompile Include="dns.cpp" />
-    <ClCompile Include="dns_type.cpp" />
-    <ClCompile Include="utils.cpp" />
-    <ClCompile Include="ip_fragments.cpp" />
-    <ClCompile Include="tcp_fragments.cpp" />
-    <ClCompile Include="ipv4.cpp" />
-    <ClCompile Include="ipv6.cpp" />
-    <ClCompile Include="packet_parser.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="statistics.cpp" />
-    <ClCompile Include="syslog.cpp" />
-    <ClCompile Include="tcp.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="argument_parser.h" />
-    <ClInclude Include="base64.h" />
-    <ClInclude Include="dns_export.h" />
-    <ClInclude Include="dns_header.h" />
-    <ClInclude Include="dns_packet_capture.h" />
-    <ClInclude Include="dns_query.h" />
-    <ClInclude Include="dns_queries.h" />
-    <ClInclude Include="dns_resource_record.h" />
-    <ClInclude Include="dns_resource_records.h" />
-    <ClInclude Include="dns.h" />
-    <ClInclude Include="dns_type.h" />
-    <ClInclude Include="utils.h" />
-    <ClInclude Include="exceptions.h" />
-    <ClInclude Include="ip_fragments.h" />
-    <ClInclude Include="tcp_fragments.h" />
-    <ClInclude Include="ipv4.h" />
-    <ClInclude Include="ipv6.h" />
-    <ClInclude Include="packet_parser.h" />
-    <ClInclude Include="statistics.h" />
-    <ClInclude Include="syslog.h" />
-    <ClInclude Include="tcp.h" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="dns.pcap">
       <RemoteCopyFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</RemoteCopyFile>
       <RemoteCopyToOutputDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</RemoteCopyToOutputDir>
       <DeploymentContent>true</DeploymentContent>
       <FileType>Document</FileType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="dns_export.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="packet\packet_parser.cpp" />
+    <ClCompile Include="packet\protocols\dns\dns.cpp" />
+    <ClCompile Include="packet\protocols\dns\dns_header.cpp" />
+    <ClCompile Include="packet\protocols\dns\dns_queries.cpp" />
+    <ClCompile Include="packet\protocols\dns\dns_query.cpp" />
+    <ClCompile Include="packet\protocols\dns\dns_resource_record.cpp" />
+    <ClCompile Include="packet\protocols\dns\dns_resource_records.cpp" />
+    <ClCompile Include="packet\protocols\dns\dns_type.cpp" />
+    <ClCompile Include="packet\protocols\ip\ipv4.cpp" />
+    <ClCompile Include="packet\protocols\ip\ipv6.cpp" />
+    <ClCompile Include="packet\protocols\ip\ip_fragments.cpp" />
+    <ClCompile Include="packet\protocols\tcp\tcp.cpp" />
+    <ClCompile Include="packet\protocols\tcp\tcp_fragments.cpp" />
+    <ClCompile Include="statistics\statistics.cpp" />
+    <ClCompile Include="syslog\syslog.cpp" />
+    <ClCompile Include="utils\argument_parser.cpp" />
+    <ClCompile Include="utils\base64.cpp" />
+    <ClCompile Include="utils\dns_packet_capture.cpp" />
+    <ClCompile Include="utils\memory_block.cpp" />
+    <ClCompile Include="utils\utils.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="dns_export.h" />
+    <ClInclude Include="packet\packet_parser.h" />
+    <ClInclude Include="packet\protocols\dns\dns.h" />
+    <ClInclude Include="packet\protocols\dns\dns_header.h" />
+    <ClInclude Include="packet\protocols\dns\dns_queries.h" />
+    <ClInclude Include="packet\protocols\dns\dns_query.h" />
+    <ClInclude Include="packet\protocols\dns\dns_resource_record.h" />
+    <ClInclude Include="packet\protocols\dns\dns_resource_records.h" />
+    <ClInclude Include="packet\protocols\dns\dns_type.h" />
+    <ClInclude Include="packet\protocols\ip\ipv4.h" />
+    <ClInclude Include="packet\protocols\ip\ipv6.h" />
+    <ClInclude Include="packet\protocols\ip\ip_fragments.h" />
+    <ClInclude Include="packet\protocols\tcp\tcp.h" />
+    <ClInclude Include="packet\protocols\tcp\tcp_fragments.h" />
+    <ClInclude Include="statistics\statistics.h" />
+    <ClInclude Include="syslog\syslog.h" />
+    <ClInclude Include="utils\argument_parser.h" />
+    <ClInclude Include="utils\base64.h" />
+    <ClInclude Include="utils\dns_packet_capture.h" />
+    <ClInclude Include="utils\exceptions.h" />
+    <ClInclude Include="utils\memory_block.h" />
+    <ClInclude Include="utils\utils.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{474fdac9-f4fc-4a17-abed-b5d497fd05ca}</ProjectGuid>

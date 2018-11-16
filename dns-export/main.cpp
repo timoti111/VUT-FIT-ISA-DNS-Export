@@ -1,14 +1,14 @@
 /**
- * Project: Export of DNS informations over Syslog protocol
+ * Project: Export of DNS information over Syslog protocol
  *
  * @brief main function soruce code
  * @author Timotej Halas <xhalas10@stud.fit.vutbr.cz>
  */
-#include "argument_parser.h"
+#include "utils/argument_parser.h"
 #include "dns_export.h"
-#include "exceptions.h"
+#include "utils/exceptions.h"
 #include <iostream>
-#include "syslog.h"
+#include "syslog/syslog.h"
 
 void print_help();
 

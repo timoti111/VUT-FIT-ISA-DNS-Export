@@ -1,15 +1,15 @@
 /**
- * Project: Export of DNS informations over Syslog protocol
+ * Project: Export of DNS information over Syslog protocol
  *
  * @brief dns_export class source code
  * @author Timotej Halas <xhalas10@stud.fit.vutbr.cz>
  */
 #include <csignal>
 #include "dns_export.h"
-#include "exceptions.h"
+#include "utils/exceptions.h"
 #include <iostream>
-#include "statistics.h"
-#include "syslog.h"
+#include "statistics/statistics.h"
+#include "syslog/syslog.h"
 #include <thread>
 
 void dns_export::set_pcap_file(const std::string& pcap_file)

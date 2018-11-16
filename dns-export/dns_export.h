@@ -1,11 +1,14 @@
-//
-// Created by timot on 05.10.2018.
-//
+/**
+ * Project: Export of DNS information over Syslog protocol
+ *
+ * @brief dns_export class header
+ * @author Timotej Halas <xhalas10@stud.fit.vutbr.cz>
+ */
 #pragma once
 #include <netinet/in.h>
 #include <string>
 #include <thread>
-#include "dns_packet_capture.h"
+#include "utils/dns_packet_capture.h"
 
 class dns_export
 {
