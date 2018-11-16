@@ -41,6 +41,11 @@
       <DeploymentContent>true</DeploymentContent>
       <FileType>Document</FileType>
     </None>
+    <None Include="TCP-communication.pcap">
+      <DeploymentContent>true</DeploymentContent>
+      <RemoteCopyFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</RemoteCopyFile>
+      <RemoteCopyToOutputDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</RemoteCopyToOutputDir>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dns_export.cpp" />
