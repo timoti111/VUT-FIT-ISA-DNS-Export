@@ -12,17 +12,20 @@
 
 class dns_export
 {
-    dns_packet_capture dns_packet_capture_{};
-    struct sockaddr_in dest_ipv4_{};
-    struct sockaddr_in6 dest_ipv6_{};
-    std::thread* stat_thread_{};
-    long long timeout_;
-    bool syslog_set_{};
-    bool interface_{};
-    static void signal_handler(int signum);
-    static void thread_handler(long long time, bool syslog_set);
+    dns_packet_capture dns_packet_capture_{}; // Class for capturing packets
+    long long timeout_; // Timeout for sending statistics to Syslog server or to writing to console
+    bool syslog_set_{}; // If Syslog server is set it is true else it is false
+    bool interface_{}; // True if capturing from interface. False if capturing from file
+    sigset_t signal_set_{}; // In constructor SIGUSR1 signal is added to this set
+    void start_syslog_thread();
+    static void syslog_handler(const sigset_t* signal_set, long long time, bool syslog_set);
     static void print_or_send_stats(bool syslog_set);
+    void start_signal_thread();
+    static void signal_handler(const sigset_t* signal_set);
 public:
+    /**
+     * @brief Sets default value of 60 seconds as timeout.
+     */
     dns_export() : timeout_(60)
     {
     }
@@ -32,5 +35,4 @@ public:
     void set_syslog_server(const std::string& server);
     void set_timeout(const std::string& timeout);
     void start();
-    std::thread start_stat_thread();
 };

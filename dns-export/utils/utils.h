@@ -14,7 +14,7 @@
 class utils
 {
 public:
-    static std::string parse_label_name(memory_block& read_head, memory_block& whole_buffer);
+    static std::string parse_label_name(memory_block& read_head, memory_block& whole_buffer, uint8_t = 1);
     static std::string bin_address_to_string(const void* address_ptr, int address_family);
     static std::string bin_address_to_string(memory_block& data, int64_t length);
     static std::string mem_to_string(memory_block& mem, int64_t length);

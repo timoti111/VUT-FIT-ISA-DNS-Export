@@ -10,13 +10,17 @@
 #include "ip_fragments.h"
 #include <map>
 
+/**
+ * @brief Class for parsing IPv6 packets.
+ */
 class ipv6
 {
-    ip6_hdr* ip6_{};
-    ip6_frag* ip6_frag_{};
-    uint8_t next_type_{};
-    static std::map<uint32_t, ip_fragments> fragmented_packets_;
+    ip6_hdr* ip6_{}; // Pointer to basic IPv6 header
+    ip6_ext* ip6_ext_{}; // Pointer to extension IPv6 header
+    ip6_frag* ip6_frag_{}; // Pointer to fragment IPv6 header
+    uint32_t next_type_{}; // Next type got from IPv6 header
+    static std::map<std::string, ip_fragments> fragmented_packets_; // Static map of fragmented packets which are from different senders and have different IDs.
 public:
-    explicit ipv6(memory_block& buffer);
+    explicit ipv6(memory_block& buffer, uint32_t next_type);
     uint8_t get_next_type() const;
 };

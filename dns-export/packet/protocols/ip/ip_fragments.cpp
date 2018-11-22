@@ -8,6 +8,12 @@
 #include "../../../utils/exceptions.h"
 #include <iostream>
 
+/**
+ * @brief This method collects fragments and reassembles packet if it is possible.
+ * @param buffer Actual pointer to memory.
+ * @param offset Offset of data from zero in eight byte blocks.
+ * @param last_fragment If actual fragment is last set to true. From last fragment whole_length is calculated.
+ */
 void ip_fragments::assembly_data(memory_block& buffer, const uint16_t offset, const bool last_fragment)
 {
     if (fragments_.find(offset) == fragments_.end())
@@ -28,7 +34,7 @@ void ip_fragments::assembly_data(memory_block& buffer, const uint16_t offset, co
                                          fragment.second.data() + fragment.second.size());
             }
             buffer = memory_block(reassembled_data_.data(), reassembled_data_.size());
-            std::cerr << "IP data of length " << buffer.size() << " assembled." << std::endl;
+            // std::cerr << "IP data of length " << buffer.size() << " assembled." << std::endl;
             return;
         }
     }

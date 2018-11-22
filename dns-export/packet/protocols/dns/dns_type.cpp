@@ -4,23 +4,23 @@
  * @brief dns_type class source code
  * @author Timotej Halas <xhalas10@stud.fit.vutbr.cz>
  */
-#include "../../../utils/base64.h"
+#include "../../../utils/base64.h" // https://github.com/ReneNyffenegger/cpp-base64
 #include "dns_type.h"
 #include "../../../utils/exceptions.h"
 #include <netinet/in.h>
 #include <sstream>
 
 /**
- * @brief Parses 
- * @param type 
- * @param read_head 
- * @param whole_buffer 
- * @param rd_length 
+ * @brief Parses one DNS type which is defined. Skips unknown types.
+ * @param type Numeric representation of type.
+ * @param read_head Actual position in whole packet buffer.
+ * @param whole_buffer Whole packet buffer.
+ * @param rd_length Length of data in type.
  */
 dns_type::dns_type(const uint16_t type, memory_block& read_head, memory_block& whole_buffer,
                    const uint16_t rd_length) : type_(get_type_name(type))
 {
-    uint64_t remaining_length = 0;
+    int64_t remaining_length = 0;
     const auto start_cap = read_head.size();
     switch (type)
     {
@@ -60,11 +60,11 @@ dns_type::dns_type(const uint16_t type, memory_block& read_head, memory_block& w
             str_ = type_soa_.to_string();
             break;
         case type_txt::num:
-            type_txt_.txt_data = utils::mem_to_string(read_head, rd_length);
+            type_txt_.txt_data = type_txt::parse_txt_data(read_head, rd_length);
             str_ = type_txt_.to_string();
             break;
         case type_spf::num:
-            type_spf_.spf_data = utils::mem_to_string(read_head, rd_length);
+            type_spf_.spf_data = type_txt::parse_txt_data(read_head, rd_length);
             str_ = type_spf_.to_string();
             break;
         case type_dnskey::num:
@@ -112,8 +112,8 @@ dns_type::dns_type(const uint16_t type, memory_block& read_head, memory_block& w
 }
 
 /**
- * @brief 
- * @return 
+ * @brief Returns literal type of actual data.
+ * @return Literal type of actual data.
  */
 std::string dns_type::get_type() const
 {
@@ -121,8 +121,8 @@ std::string dns_type::get_type() const
 }
 
 /**
- * @brief 
- * @return 
+ * @brief Returns literal representation of actual data.
+ * @return Literal representation of actual data.
  */
 std::string dns_type::to_string() const
 {
@@ -130,10 +130,10 @@ std::string dns_type::to_string() const
 }
 
 /**
- * @brief 
- * @param stream 
- * @param obj 
- * @return 
+ * @brief Allows this class to be appended to stream via << operator.
+ * @param stream Stream.
+ * @param obj Statistics object.
+ * @return To stream.
  */
 std::ostream& operator<<(std::ostream& stream, dns_type& obj)
 {
@@ -141,9 +141,9 @@ std::ostream& operator<<(std::ostream& stream, dns_type& obj)
 }
 
 /**
- * @brief 
- * @param type 
- * @return 
+ * @brief Converts numeric representation of type to literal.
+ * @param type Numeric representation of type.
+ * @return Literal representation of type. If type is unknown returns TYPExx format.
  */
 std::string dns_type::get_type_name(const uint16_t type)
 {
@@ -184,26 +184,46 @@ std::string dns_type::get_type_name(const uint16_t type)
     }
 }
 
+/**
+ * @brief Returns literal representation of A type.
+ * @return Literal representation of A type.
+ */
 std::string dns_type::type_a::to_string() const
 {
     return address;
 }
 
+/**
+ * @brief Returns literal representation of AAAA type.
+ * @return Literal representation of AAAA type.
+ */
 std::string dns_type::type_aaaa::to_string() const
 {
     return address;
 }
 
+/**
+ * @brief Returns literal representation of CNAME type.
+ * @return Literal representation of CNAME type.
+ */
 std::string dns_type::type_cname::to_string() const
 {
     return cname;
 }
 
+/**
+ * @brief Returns literal representation of PTR type.
+ * @return Literal representation of PTR type.
+ */
 std::string dns_type::type_ptr::to_string() const
 {
     return ptrdname;
 }
 
+/**
+ * @brief Returns literal representation of MX type.
+ * @return Literal representation of MX type.
+ */
 std::string dns_type::type_mx::to_string() const
 {
     std::stringstream stream;
@@ -211,11 +231,19 @@ std::string dns_type::type_mx::to_string() const
     return stream.str();
 }
 
+/**
+ * @brief Returns literal representation of NS type.
+ * @return Literal representation of NS type.
+ */
 std::string dns_type::type_ns::to_string() const
 {
     return nsdname;
 }
 
+/**
+ * @brief Returns literal representation of SOA type.
+ * @return Literal representation of SOA type.
+ */
 std::string dns_type::type_soa::to_string() const
 {
     std::stringstream stream;
@@ -224,6 +252,32 @@ std::string dns_type::type_soa::to_string() const
     return stream.str();
 }
 
+/**
+ * @brief Parses TXT type data.
+ * @param mem Actual pointer to memory.
+ * @param length Length of data to parse.
+ * @return TXT data in string.
+ */
+std::string dns_type::type_txt::parse_txt_data(memory_block& mem, int64_t length)
+{
+    std::stringstream stream;
+    while (length > 0)
+    {
+        auto len = *mem.get_ptr_and_add<uint8_t>();
+        stream << utils::mem_to_string(mem, len);
+        length -= 1 + len;
+        if (length > 0)
+        {
+            stream << " ";
+        }
+    }
+    return stream.str();
+}
+
+/**
+ * @brief Returns literal representation of TXT type.
+ * @return Literal representation of TXT type.
+ */
 std::string dns_type::type_txt::to_string() const
 {
     std::stringstream stream;
@@ -231,6 +285,10 @@ std::string dns_type::type_txt::to_string() const
     return stream.str();
 }
 
+/**
+ * @brief Returns literal representation of SPF type.
+ * @return Literal representation of SPF type.
+ */
 std::string dns_type::type_spf::to_string() const
 {
     std::stringstream stream;
@@ -238,42 +296,60 @@ std::string dns_type::type_spf::to_string() const
     return stream.str();
 }
 
+/**
+ * @brief Returns literal representation of DNSKEYA type.
+ * @return Literal representation of DNSKEY type.
+ */
 std::string dns_type::type_dnskey::to_string() const
 {
     std::stringstream stream;
     stream << "\"" << flags << " " << static_cast<uint16_t>(protocol) << " " << static_cast<uint16_t>(algorithm)
-        << " ( " << public_key << " )\"";
+        << " " << public_key << "\"";
     return stream.str();
 }
 
+/**
+ * @brief Returns literal representation of RRSIG type.
+ * @return Literal representation of RRSIG type.
+ */
 std::string dns_type::type_rrsig::to_string() const
 {
     std::stringstream stream;
     stream << "\"" << get_type_name(type_covered) << " " << static_cast<uint16_t>(algorithm) << " "
-        << static_cast<uint16_t>(labels) << " " << original_ttl << " " << signature_expiration << " ( "
-        << signature_inception << " " << key_tag << " " << signers_name << " " << signature << " )\"";
+        << static_cast<uint16_t>(labels) << " " << original_ttl << " " << signature_expiration << " "
+        << signature_inception << " " << key_tag << " " << signers_name << " " << signature << "\"";
     return stream.str();
 }
 
-std::string dns_type::type_nsec::parse_type_bit_maps(memory_block& mem, const uint64_t length)
+/**
+ * @brief For more information see RFC4034 section 4.1.2.
+ * @param mem Actual pointer to memory.
+ * @param length Length of data to parse.
+ * @return RR set types.
+ */
+std::string dns_type::type_nsec::parse_type_bit_maps(memory_block& mem, int64_t length)
 {
-    const auto map_length = ntohs(*mem.get_ptr_and_add<uint16_t>());
-    if (map_length + 2 != length)
-    {
-        throw dns_parsing_error("Error: parse_type_bit_maps");
-    }
-    uint32_t type_num = 0;
     std::stringstream stream;
-    for (auto i = 0; i < map_length; i++)
+    while (length > 1)
     {
-        const auto next_byte = *mem.get_ptr_and_add<uint8_t>();
-        for (auto rotate = 7; rotate >= 0; rotate--)
+        uint32_t type_num = *mem.get_ptr_and_add<uint8_t>() * 256;
+        const auto map_length = *mem.get_ptr_and_add<uint8_t>();
+        length -= map_length + 2;
+        if (length < 0)
         {
-            if (next_byte >> rotate & 1)
+            throw dns_parsing_error("Corrupted packet");
+        }
+        for (auto i = 0; i < map_length; i++)
+        {
+            const auto next_byte = *mem.get_ptr_and_add<uint8_t>();
+            for (auto rotate = 7; rotate >= 0; rotate--)
             {
-                stream << get_type_name(type_num) << " ";
+                if (next_byte >> rotate & 1)
+                {
+                    stream << get_type_name(type_num) << " ";
+                }
+                type_num++;
             }
-            type_num++;
         }
     }
     auto ret = stream.str();
@@ -282,6 +358,10 @@ std::string dns_type::type_nsec::parse_type_bit_maps(memory_block& mem, const ui
     return ret;
 }
 
+/**
+ * @brief Returns literal representation of NSEC type.
+ * @return Literal representation of NSEC type.
+ */
 std::string dns_type::type_nsec::to_string() const
 {
     std::stringstream stream;
@@ -289,10 +369,14 @@ std::string dns_type::type_nsec::to_string() const
     return stream.str();
 }
 
+/**
+ * @brief Returns literal representation of DS type.
+ * @return Literal representation of DS type.
+ */
 std::string dns_type::type_ds::to_string() const
 {
     std::stringstream stream;
     stream << "\"" << key_tag << " " << static_cast<uint16_t>(algorithm) << " " << static_cast<uint16_t>(digest_type)
-        << " ( " << digest << " )\"";
+        << " " << digest << "\"";
     return stream.str();
 }

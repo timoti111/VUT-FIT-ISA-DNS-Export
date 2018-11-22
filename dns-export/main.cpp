@@ -9,7 +9,6 @@
 #include "utils/exceptions.h"
 #include <iostream>
 #include "syslog/syslog.h"
-
 void print_help();
 
 /**
@@ -54,8 +53,6 @@ int main(const int argc, char* argv[])
             if (arguments.contains("i"))
             {
                 dns_export.set_interface(arguments["i"].second);
-                auto stat_thread = dns_export.start_stat_thread();
-                stat_thread.detach();
             }
             dns_export.start();
         }

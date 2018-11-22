@@ -1,0 +1,79 @@
+.TH DNS-EXPORT 1
+.SH NAME
+dns-export \- captures DNS packets and creates statistics from them
+.SH SYNOPSIS
+.B dns-export
+[\fB\-h\fR]
+[\fB\-r\fR \fIPCAP-FILE\fR]
+[\fB\-i\fR \fIINTERFACE\fR]
+[\fB\-s\fR \fISYSLOG-SERVER\fR]
+[\fB\-t\fR \fISECONDS\fR]
+.SH DESCRIPTION
+.B dns-export
+starts capturing packets from file or interface based on used options.
+.br 
+It uses pcap library for capturing packets from some interfce.
+.br
+If interface is set program is capturing packets in infinite loop,
+.br
+collects statistics and stops only if \fISIGINT\fR (Ctrl + C) signal is received.
+.br
+Statistics are sent to syslog server after x \fISECONDS\fR set with option \fB\-t\fR.
+.br
+If not set default value is 60 seconds. If syslog server is not set statistics are
+.br
+written to standard output by default. Statistics can be written to standard output
+.br
+even with signal \fISIGUSR1\fR. 
+.br
+If pcap file is set program parses all packets in this file collects statistics
+.br
+and sends them to syslog server if it is set. If not writes them to standard output.
+.PP
+\fISupported DNS answer types:\fR A, AAAA, CNAME, PTR, MX, NS, SOA, TXT, SPF, DNSKEY, RRSIG, NSEC, DS
+.br
+\fISupported lower layer protocols:\fR
+.br
+\fILink layer:\fR RAW packet, Linux cooked capture encapsulation, Ethernet, IPv4, IPv6
+.br
+\fINetwork layer:\fR IPv4 (fragmented too), IPv6 (fragmented too)
+.br
+\fITransport layer:\fR TCP (segmented too), UDP 
+.PP
+Fragmented IPv4 and IPv6 packets are supported and IPv6 extension headers are supported
+.br
+too except ESP header, which encrypts data in packet.
+.br
+Assembling of segmented TCP packets is supported also.
+.br
+Both TCP segmenting and IP fragenting collects data and assembles them if possible.
+.SH OPTIONS
+.TP
+.B \-h
+.br
+Prints help.
+.TP
+.B \-r \fIPCAP-FILE\fR
+Sets file for packet capturing.
+.TP
+.B \-i \fIINTERFACE\fR
+Sets file for packet capturing.
+.TP
+.B \-s \fISYSLOG-SERVER\fR
+Sets server where statistics will be sent to syslog server on port 514.
+.TP
+.B \-t \fISECONDS\fR
+Sets time after which statistics will be sent to syslog server if it was set or to
+.br
+standard output if not.
+.SH EXAMPLES
+.TP
+.B dns-export -r file.pcap
+runs program to capture packets from file file.pcap and prints them to standard output.
+.TP
+.B dns-export -i eth0 -s 127.0.0.1 -t 5
+runs program to capture packets from interface eth0 and sends statistics to server
+.br
+127.0.0.1 every 5 seconds
+.SH AUTHOR
+Timotej Halás (xhalas10@stud.fit.vutbr.cz)

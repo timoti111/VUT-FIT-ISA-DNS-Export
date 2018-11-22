@@ -55,7 +55,7 @@ int64_t memory_block::size() const
  */
 memory_block memory_block::operator+(const int64_t rhs) const
 {
-    if (rhs > length_)
+    if (rhs > length_ || rhs < 0)
     {
         throw memory_error("Memory error");
     }
@@ -69,12 +69,7 @@ memory_block memory_block::operator+(const int64_t rhs) const
  */
 memory_block& memory_block::operator+=(const int64_t rhs)
 {
-    if (rhs > length_)
-    {
-        throw memory_error("Memory error");
-    }
-    ptr_ += rhs;
-    length_ -= rhs;
+    *this = *this + rhs;
     return *this;
 }
 

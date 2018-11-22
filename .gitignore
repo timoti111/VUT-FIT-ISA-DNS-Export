@@ -259,3 +259,9 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/dns-export/xhalas10.tar
+/dns-export/dep.list
+/dns-export/cloc-1.80.exe
+/dns-export/xhalas10
+/dns-export/examples
+/dns-export/doc

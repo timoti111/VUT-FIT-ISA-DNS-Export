@@ -16,8 +16,12 @@
  * @param whole_buffer If compression is found this buffer is used for decompression.
  * @return Data in string eg. www.fit.vutbr.cz. Returns '.' if label is 0 (root).
  */
-std::string utils::parse_label_name(memory_block& read_head, memory_block& whole_buffer)
+std::string utils::parse_label_name(memory_block& read_head, memory_block& whole_buffer, uint8_t recursion_depth)
 {
+    if (recursion_depth > 30)
+    {
+        throw other_error("Packet is corrupted.");
+    }
     std::string name;
     while (true)
     {
@@ -25,7 +29,7 @@ std::string utils::parse_label_name(memory_block& read_head, memory_block& whole
         {
             const uint16_t offset = ntohs(*read_head.get_ptr_and_add<uint16_t>()) & 0x3fff;
             auto p = whole_buffer + offset;
-            auto ptr_name = parse_label_name(p, whole_buffer);
+            auto ptr_name = parse_label_name(p, whole_buffer, ++recursion_depth);
             name.insert(name.end(), ptr_name.begin(), ptr_name.end());
             return name;
         }
@@ -100,9 +104,8 @@ std::string utils::bin_address_to_string(memory_block& data, const int64_t lengt
  */
 std::string utils::mem_to_string(memory_block& mem, const int64_t length)
 {
-    auto ret = std::string(mem.begin(), mem.end());
-    ret.push_back('\0');
     mem += length;
+    auto ret = std::string(mem.begin() - length, mem.begin());
     return ret;
 }
 

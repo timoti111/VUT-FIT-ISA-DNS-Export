@@ -8,6 +8,7 @@
 #include "exceptions.h"
 #include "../packet/packet_parser.h"
 #include <sstream>
+#include <iostream>
 
 /**
  * @brief Destructor which closes handle_ if it is used.
@@ -60,7 +61,8 @@ void dns_packet_capture::start_capture()
         throw packet_capture_error("Handle is null.");
     }
     link_type_ = pcap_datalink(handle_);
-    if (link_type_ != DLT_EN10MB && link_type_ != DLT_LINUX_SLL && link_type_ != DLT_IPV4 && link_type_ != DLT_IPV6)
+    if (link_type_ != DLT_RAW && link_type_ != DLT_EN10MB && link_type_ != DLT_LINUX_SLL && link_type_ != DLT_IPV4 &&
+        link_type_ != DLT_IPV6)
     {
         throw packet_capture_error("Device is not ethernet.");
     }
@@ -99,6 +101,33 @@ int dns_packet_capture::next_packet() const
     {
         throw packet_capture_error("Pcap returns corrupted packet.");
     }
-    packet_parser(packet_data, packet_hdr->caplen, link_type_, ++n);
+    try
+    {
+        n++;
+        memory_block whole_buffer{const_cast<uint8_t*>(packet_data), packet_hdr->caplen};
+        packet_parser(whole_buffer, link_type_);
+    }
+    // errors are commented so no disturbing text is printed to console while parsing packets
+    catch (dns_parsing_error& e)
+    {
+        //std::cerr << "Packet number: " << n << " Packet len: " << packet_hdr->caplen << std::endl;
+        //std::cerr << "\t" << e.what() << std::endl;
+    }
+    catch (packet_parsing_error& e)
+    {
+        //std::cerr << "Packet number: " << n << " Packet len: " << packet_hdr->caplen << std::endl;
+        //std::cerr << "\t" << e.what() << std::endl;
+    }
+    catch (memory_error& e)
+    {
+        //std::cerr << "Packet number: " << n << " Packet len: " << packet_hdr->caplen << std::endl;
+        //std::cerr << "\t" << e.what() << std::endl;
+    }
+    catch (other_error& e)
+    {
+        //std::cerr << "Packet number: " << n << " Packet len: " << packet_hdr->caplen << std::endl;
+        //std::cerr << "\t" << e.what() << std::endl;
+    }
+    return 0;
     return 0;
 }

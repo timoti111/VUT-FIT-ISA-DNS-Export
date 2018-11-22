@@ -24,7 +24,7 @@ dns::dns(memory_block& buffer)
     {
         throw dns_parsing_error("DNS server error! Skipping packet.");
     }
-    questions = dns_queries(read_head, buffer, header.qd_count);
+    questions = dns_questions(read_head, buffer, header.qd_count);
     answers = dns_resource_records(read_head, buffer, header.an_count);
     authorities = dns_resource_records(read_head, buffer, header.ns_count);
     additionals = dns_resource_records(read_head, buffer, header.ar_count);

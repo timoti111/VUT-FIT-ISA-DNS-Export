@@ -47,7 +47,7 @@ std::string syslog::generate_timestamp()
     timeval cur_time{};
     gettimeofday(&cur_time, nullptr);
     const auto ms = cur_time.tv_usec / 1000;
-    localtime_r(&cur_time.tv_sec, &time);
+    gmtime_r(&cur_time.tv_sec, &time);
     strftime(date_time, 20, "%Y-%m-%dT%X", &time);
     std::stringstream stream;
     stream << date_time << "." << std::setfill('0') << std::setw(3) << ms << "Z";

@@ -68,9 +68,18 @@ std::string statistics::to_string()
 {
     std::stringstream stream;
     std::lock_guard<std::mutex> lock(mutex_);
+    static auto first = true;
+    if (!first)
+    {
+        stream << std::endl;
+    }
     for (auto& element : stats_)
     {
         stream << element.first << " " << element.second << std::endl;
+    }
+    if (!stats_.empty())
+    {
+        first = false;
     }
     return stream.str();
 }

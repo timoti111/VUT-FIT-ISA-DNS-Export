@@ -98,6 +98,7 @@ class dns_type
     {
         static const uint16_t num = 16;
         std::string txt_data{};
+        static std::string parse_txt_data(memory_block& mem, int64_t length);
         std::string to_string() const;
     } type_txt_{};
 
@@ -150,7 +151,7 @@ class dns_type
         static const uint16_t num = 47;
         std::string next_domain_name{};
         std::string type_bit_maps{};
-        static std::string parse_type_bit_maps(memory_block& mem, const uint64_t length);
+        static std::string parse_type_bit_maps(memory_block& mem, int64_t length);
         std::string to_string() const;
     } type_nsec_{};
 

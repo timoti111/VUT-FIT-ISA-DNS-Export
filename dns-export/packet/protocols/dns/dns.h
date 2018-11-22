@@ -6,7 +6,7 @@
  */
 #pragma once
 #include "dns_header.h"
-#include "dns_queries.h"
+#include "dns_questions.h"
 #include "dns_resource_records.h"
 
 /**
@@ -15,10 +15,10 @@
 class dns
 {
 public:
-    dns_header header; /// Header section of response
-    dns_queries questions; /// Question section of response
-    dns_resource_records answers; /// Answers section of response
-    dns_resource_records authorities; /// Authorities section of response
-    dns_resource_records additionals; /// Additionals section of response
+    dns_header header; // Header section of response
+    dns_questions questions; // Question section of response
+    dns_resource_records answers; // Answer section of response
+    dns_resource_records authorities; // Authority section of response
+    dns_resource_records additionals; // Additional section of response
     explicit dns(memory_block& buffer);
 };
